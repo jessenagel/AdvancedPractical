@@ -15,7 +15,7 @@ def f(i,data,datasimpel,new,m):
     HL = 255
     BL = 10
     k=2
-    n = np.int((30*m/75))
+    n = np.int((45*m/75))
     print("n=")
     print(n)
     finalpath[i-1] = n
@@ -30,10 +30,10 @@ def f(i,data,datasimpel,new,m):
         for imin2 in range (0,m):
             for imin1 in range (0,m):
                 for i0 in range (0,m):
-                        a = 30 - i0 * 75 / m
+                        a = 45 - i0 * 75 / m
                         if k == 2:
-                            if np.abs(datasimpel[k, 2] + a - (datasimpel[k - 1, 2] + 30 - imin1 * 75 / m)) <= HL:
-                                if np.abs((datasimpel[k - 1, 2] + 30 - imin1 * 75 / m - (datasimpel[k - 2, 2] + 30 - imin2 * 75 / m)) - (datasimpel[k, 2] + a - (datasimpel[k - 1, 2] + 30 - imin1 * 75 / m))) <= BL and imin2== imin1 == n:
+                            if np.abs(datasimpel[k, 2] + a - (datasimpel[k - 1, 2] + 45 - imin1 * 75 / m)) <= HL:
+                                if np.abs((datasimpel[k - 1, 2] + 45 - imin1 * 75 / m - (datasimpel[k - 2, 2] + 45 - imin2 * 75 / m)) - (datasimpel[k, 2] + a - (datasimpel[k - 1, 2] + 45 - imin1 * 75 / m))) <= BL and imin2== imin1 == n:
                                     if (c(cost,k,i0) + xi_0result[imin2,imin1,i0] ) <= xi_0result[imin2, imin1, i0] :
                                         xi_0result[imin2, imin1, i0] = c(cost,k,i0)
                                 else:
@@ -41,8 +41,8 @@ def f(i,data,datasimpel,new,m):
                             else:
                                 xi_0result[imin2, imin1, i0] = np.inf
                         if k == 3:
-                            if np.abs(datasimpel[k, 2] + a - (datasimpel[k - 1, 2] + 30 - imin1 * 75 / m)) <= HL:
-                                if np.abs((datasimpel[k - 1, 2] + 30 - imin1 * 75 / m - (datasimpel[k - 2, 2] + 30 - imin2 * 75 / m)) - (datasimpel[k, 2] + a - (datasimpel[k - 1, 2] + 30 - imin1 * 75 / m))) <= BL and imin2 == n:
+                            if np.abs(datasimpel[k, 2] + a - (datasimpel[k - 1, 2] + 45 - imin1 * 75 / m)) <= HL:
+                                if np.abs((datasimpel[k - 1, 2] + 45 - imin1 * 75 / m - (datasimpel[k - 2, 2] + 45 - imin2 * 75 / m)) - (datasimpel[k, 2] + a - (datasimpel[k - 1, 2] + 45 - imin1 * 75 / m))) <= BL and imin2 == n:
                                     if (c(cost,k,i0) + xi_0result[imin2,imin1,i0] ) <= xi_0result[imin2, imin1, i0] :
                                         xi_0result[imin2, imin1, i0] = c(cost,k,i0) + xi_1result[imin2,imin1]
                                 else:
@@ -50,8 +50,8 @@ def f(i,data,datasimpel,new,m):
                             else:
                                 xi_0result[imin2, imin1, i0] = np.inf
                         else:
-                            if np.abs(datasimpel[k,2] + a - (datasimpel[k-1,2]+ 30 - imin1 * 75 / m)) <= HL:
-                                if np.abs(((datasimpel[k - 1, 2] + 30 - imin1 * 75 / m) - (datasimpel[k - 2, 2] + 30 - imin2 * 75 / m)) - (datasimpel[k, 2] + a - (datasimpel[k - 1, 2] + 30 - imin1 * 75 / m)))<=BL:
+                            if np.abs(datasimpel[k,2] + a - (datasimpel[k-1,2]+ 45 - imin1 * 75 / m)) <= HL:
+                                if np.abs(((datasimpel[k - 1, 2] + 45 - imin1 * 75 / m) - (datasimpel[k - 2, 2] + 45 - imin2 * 75 / m)) - (datasimpel[k, 2] + a - (datasimpel[k - 1, 2] + 45 - imin1 * 75 / m)))<=BL:
                                     if(c(cost,k,i0) + xi_0result[imin2,imin1,i0]) <= xi_0result[imin2,imin1,i0] :
                                         xi_0result[imin2,imin1,i0] = c(cost,k,i0) + xi_1result[imin2,imin1]
                                 else:
@@ -79,7 +79,7 @@ def f(i,data,datasimpel,new,m):
         finalpath[i-alpha] = path[(i-alpha),finalpath[i-alpha+1],finalpath[i-alpha+2]]
     finalheights = np.zeros((i,1))
     for beta in range(0,i):
-        finalheights[beta] = datasimpel[beta,2] + 30 - finalpath[beta] *75 /m
+        finalheights[beta] = datasimpel[beta,2] + 45 - finalpath[beta] *75 /m
     return np.min(xi_0result[:,n,n],axis=None),path[5],finalpath,finalheights
 
 
@@ -89,13 +89,17 @@ def c(cost,k,a):
 
 def gencost(m,i,data):
     costtable = np.zeros((i,m))
-    n = np.int((30*m/75))
-    counter = 0
     for k in range(0,i):
         for l in range(0, m):
-            a = 30 - l * 75 / m
+            a = 45 - l * 75 / m
             costtable[k,l] = gencostpoint(m,i,data,k*6,l,a)
     return costtable
+
+# def genroad(finalpath,data):
+#     
+#     for r in range (1,6):
+#         road[r] = road[0] + (((temp[r,1]-temp[0,1])/1000) * HB)
+#     for q in range (1,6):
 
 def gencostpoint(m,i,data,k,l,a):
     cost = 0
@@ -106,22 +110,22 @@ def gencostpoint(m,i,data,k,l,a):
     for r in range (1,6):
         adjusted[r] = adjusted[0] + (((temp[r,1]-temp[0,1])/1000) * HB)
     for q in range (1,6):
-        if adjusted[q] - temp[q,2] < -45 or adjusted[q] - temp[q,2] >30:
+        if adjusted[q] - temp[q,2] < -30 or adjusted[q] - temp[q,2] >45:
             return np.inf
-    if adjusted[0] - temp[0, 2] < 0:
-        cost = cost - 10 * (0.5 * np.abs(temp[0, 1] - (temp[0, 1]  -350)) + 0.5 * np.abs(temp[0, 1] + temp[1, 1])) * (adjusted[0] - temp[0, 2])
     if adjusted[0] - temp[0, 2] > 0:
-        cost = cost + 2 * 10 * (0.5 * np.abs(temp[0, 1] - (temp[0, 1] -350)) + 0.5 * np.abs(temp[0, 1] + temp[0 + 1, 1]))*(adjusted[0] - temp[0, 2])
+        cost = cost + 10000 * (0.5 * 350 + 0.5 * np.abs(temp[0, 1] - temp[1, 1])) * (adjusted[0] - temp[0, 2])
+    if adjusted[0] - temp[0, 2] < 0:
+        cost = cost - 2 * 10000 * (0.5 * 350 + 0.5 * np.abs(temp[0, 1] - temp[0 + 1, 1])) * (adjusted[0] - temp[0, 2])
     for x in range (1,5):
-        if adjusted[x] - temp[x,2] < 0:
-            cost = cost - 10 *(0.5*np.abs(temp[x,1]-temp[x-1,1])+ 0.5*np.abs(temp[x,1]+temp[x+1,1]))*(adjusted[x] - temp[x,2])
-        if adjusted[x] - temp[x, 2] > 0:
-            cost = cost + 2 *  10 * (0.5*np.abs(temp[x,1]-temp[x-1,1])+ 0.5*np.abs(temp[x,1]+temp[x+1,1]))* (adjusted[x] - temp[x, 2])
-    if adjusted[5] - temp[5, 2] < 0:
-        cost = cost - 10 * (0.5 * np.abs(temp[5, 1] - (temp[4, 1])) + 0.5 * np.abs(temp[5, 1] - (temp[5, 1]+600))) * (adjusted[5] - temp[5, 2])
+        if adjusted[x] - temp[x,2] > 0:
+            cost = cost + 10000 *(0.5*np.abs(temp[x,1]-temp[x-1,1])+ 0.5*np.abs(temp[x,1]-temp[x+1,1])) *(adjusted[x] - temp[x,2])
+        if adjusted[x] - temp[x, 2] < 0:
+            cost = cost - 2 *  10000 * (0.5*np.abs(temp[x,1]-temp[x-1,1])+ 0.5*np.abs(temp[x,1]-temp[x+1,1])) * (adjusted[x] - temp[x, 2])
     if adjusted[5] - temp[5, 2] > 0:
-        cost = cost + 2 * 10 * (0.5 * np.abs(temp[5, 1] - (temp[4, 1])) + 0.5 * np.abs(temp[5, 1] -(temp[5, 1]+600))) * (adjusted[0] - temp[0, 2])
-    return cost
+        cost = cost + 10000 * (0.5 * np.abs(temp[5, 1] - (temp[4, 1])) + 0.5 * 600) * (adjusted[5] - temp[5, 2])
+    if adjusted[5] - temp[5, 2] < 0:
+        cost = cost - 2 * 10000 * (0.5 * np.abs(temp[5, 1] - (temp[4, 1])) + 0.5 * 600) * (adjusted[0] - temp[0, 2])
+    return cost * (10**-9)
 
 def main():
     m = 40
